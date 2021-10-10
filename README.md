@@ -42,3 +42,9 @@ python3 main.py # For development
 # OR
 gunicorn main:app -b 0.0.0.0:8000 # For production
 ```
+
+## ⚡ API Docs
+
+You can go to http://127.0.0.1:8000/container/<container_name_or_id>
+
+It will return the specified status code and a json output with the container status.
