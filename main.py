@@ -12,7 +12,7 @@ docker_client = docker.from_env()
 app = Flask(__name__)
 
 @app.route('/container/<id_or_name>')
-def get_contaienr_status(id_or_name):
+def get_container_status(id_or_name):
     try:
         container = docker_client.containers.get(id_or_name)
     except docker.errors.NotFound:
