@@ -1,7 +1,6 @@
 import os
 import docker
 from flask import Flask
-import json
 
 AVALIABLE_STAUS_CODE = os.environ.get('DHB_AVALIABLE_STAUS_CODE', 200)
 UNAVALIABLE_STAUS_CODE = os.environ.get('DHB_UNAVALIABLE_STAUS_CODE', 503)
