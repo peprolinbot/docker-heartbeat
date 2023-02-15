@@ -16,14 +16,15 @@ def get_container_status(id_or_name):
         container = docker_client.containers.get(id_or_name)
     except docker.errors.NotFound:
         output = {"error": "Container not found"}
-        status = NOT_FOUND_STATUS_CODE
+        status_code = NOT_FOUND_STATUS_CODE
     else:
-        output = {"status": container.status}
+        status = container.status
+        output = {"status": status}
         if output.get("status") == "running":
-            status = AVALIABLE_STAUS_CODE
+            status_code = AVALIABLE_STAUS_CODE
         else:
-            status = UNAVALIABLE_STAUS_CODE
-    return output, status
+            status_code = UNAVALIABLE_STAUS_CODE
+    return output, status_code
 
 
 
