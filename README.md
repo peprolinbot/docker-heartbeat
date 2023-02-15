@@ -45,6 +45,39 @@ gunicorn main:app -b 0.0.0.0:8000 # For production
 
 ## ⚡ API Docs
 
-You can go to http://127.0.0.1:8000/container/<container_name_or_id>
+### Quick start
 
-It will return the specified status code and a json output with the container status.
+To check a container's status you can go to `http://127.0.0.1:8000/container/<container_name_or_id>`
+
+It will return the specified status code and a JSON output. This also works for services and stacks on their respectives endpoints. (`/service/<foo>` and `/stack/<bar>`)
+
+### Endpoints
+
+Below are the expected JSON output for every endpoint. If the _thing_ you are querying isn't found. It'd be `{"error":"(Container/Service/Stack) not found"}`
+
+- /container/<container_name_or_id>
+```
+{
+    "status":"running"
+}
+```
+- /service/<service_name_or_id>
+```
+{
+    "status": {"0": "running",
+               "1": "running",
+               "2": "running"}
+}
+```
+
+- /stack/<stack_name_or_id>
+```
+{
+    "status": {"mystack_app": {"0": "running",
+                               "1": "running",
+                               "2": "running"},
+               "mystack_proxy": {"0": "running"},
+               "mystack_database": {"0": "running",
+                                    "1": "running"}
+}            
+```
