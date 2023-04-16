@@ -20,8 +20,8 @@ docker run -d --restart always --name docker-heartbeat -v /var/run/docker.sock:/
 
 | Name                         | Description |
 |------------------------------|-------------|
-| `DHB_AVALIABLE_STAUS_CODE`   | Status code to give when the container is running. _(Default: 200)_
-| `DHB_UNAVALIABLE_STAUS_CODE` | Status code to give when the container is NOT running. _(Default: 503)_
+| `DHB_AVALIABLE_STATUS_CODE`   | Status code to give when the container is running. _(Default: 200)_
+| `DHB_UNAVALIABLE_STATUS_CODE` | Status code to give when the container is NOT running. _(Default: 503)_
 | `DHB_NOT_FOUND_STATUS_CODE`  | Status code to give when the container doesn't exist. _(Default: 404)_
 
 

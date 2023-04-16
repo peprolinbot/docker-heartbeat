@@ -3,8 +3,8 @@ import os
 import docker
 from python_on_whales import docker as pow_docker
 
-AVALIABLE_STAUS_CODE = os.environ.get('DHB_AVALIABLE_STAUS_CODE', 200)
-UNAVALIABLE_STAUS_CODE = os.environ.get('DHB_UNAVALIABLE_STAUS_CODE', 503)
+AVALIABLE_STATUS_CODE = os.environ.get('DHB_AVALIABLE_STATUS_CODE', 200)
+UNAVALIABLE_STATUS_CODE = os.environ.get('DHB_UNAVALIABLE_STATUS_CODE', 503)
 NOT_FOUND_STATUS_CODE = os.environ.get('DHB_NOT_FOUND_STATUS_CODE', 404)
 
 docker_client = docker.from_env()
@@ -23,9 +23,9 @@ def get_container_status(id_or_name):
         status = container.status
         output = {"status": status}
         if output.get("status") == "running":
-            status_code = AVALIABLE_STAUS_CODE
+            status_code = AVALIABLE_STATUS_CODE
         else:
-            status_code = UNAVALIABLE_STAUS_CODE
+            status_code = UNAVALIABLE_STATUS_CODE
     return output, status_code
 
 
@@ -37,12 +37,12 @@ def get_service_status(id_or_name):
         output = {"error": "Service not found"}
         status_code = NOT_FOUND_STATUS_CODE
     else:
-        status_code = AVALIABLE_STAUS_CODE
+        status_code = AVALIABLE_STATUS_CODE
         output = {"status": {}}
         for i, task in enumerate(service.tasks()):
             output["status"][i] = status = task["Status"]["State"]
             if status != "running":
-                status_code = UNAVALIABLE_STAUS_CODE
+                status_code = UNAVALIABLE_STATUS_CODE
     return output, status_code
 
 
@@ -53,12 +53,12 @@ def get_stack_status(id_or_name):
         output = {"error": "Stack not found"}
         status_code = NOT_FOUND_STATUS_CODE
     else:
-        status_code = AVALIABLE_STAUS_CODE
+        status_code = AVALIABLE_STATUS_CODE
         output = {"status": {}}
         for service in services:
             _output, _status_code = get_service_status(service.id)
             output["status"][service.spec.name] = _output["status"]
-            if _status_code != AVALIABLE_STAUS_CODE:
+            if _status_code != AVALIABLE_STATUS_CODE:
                 status_code = _status_code
     
     return output, status_code
