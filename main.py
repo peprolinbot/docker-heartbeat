@@ -37,12 +37,12 @@ def get_service_status(id_or_name):
         output = {"error": "Service not found"}
         status_code = NOT_FOUND_STATUS_CODE
     else:
-        status_code = AVALIABLE_STATUS_CODE
+        status_code = UNAVALIABLE_STATUS_CODE
         output = {"status": {}}
         for i, task in enumerate(service.tasks()):
             output["status"][i] = status = task["Status"]["State"]
-            if status != "running":
-                status_code = UNAVALIABLE_STATUS_CODE
+            if status == "running":
+                status_code = AVALIABLE_STATUS_CODE
     return output, status_code
 
 
